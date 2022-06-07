@@ -9,7 +9,7 @@ WORKDIR /app
 # Install OpenSSL - it is dynamically linked by some of our dependencies
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl \
-    && apt-get install -y cmake \
+    && apt-get install -y protobuf \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
