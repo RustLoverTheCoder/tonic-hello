@@ -1,6 +1,10 @@
 FROM rust:latest AS builder
 
 WORKDIR /app
+
+RUN apt-get update -y \
+    && apt-get install -y cmake
+
 COPY . .
 RUN cargo build --release
 
@@ -9,7 +13,6 @@ WORKDIR /app
 # Install OpenSSL - it is dynamically linked by some of our dependencies
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl \
-    && apt-get install -y protobuf-compiler \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
