@@ -4,12 +4,11 @@ WORKDIR /app
 COPY . .
 RUN cargo build --release
 
-FROM debian:bullseye-slim AS runtime
+FROM debian:stable-slim AS runtime
 WORKDIR /app
 # Install OpenSSL - it is dynamically linked by some of our dependencies
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl \
-    && apt-get install -y cmake \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
