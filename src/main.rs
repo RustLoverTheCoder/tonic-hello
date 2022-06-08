@@ -3,6 +3,8 @@ use tonic::{transport::Server, Request, Response, Status};
 use hello_world::greeter_server::{Greeter, GreeterServer};
 use hello_world::{HelloReply, HelloRequest};
 
+use std::net::SocketAddr;
+
 pub mod hello_world {
     tonic::include_proto!("helloworld");
 }
@@ -28,7 +30,7 @@ impl Greeter for MyGreeter {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50051".parse()?;
+    let addr = SocketAddr::from(([127, 0, 0, 1], 8081));
     let greeter = MyGreeter::default();
     println!("listen:{}", addr);
 
